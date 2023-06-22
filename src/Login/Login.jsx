@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { contexM } from "../Proviuders/ContexProvider";
 import { useState } from "react";
 
@@ -8,20 +8,17 @@ const Login = () => {
     // user from contex
     const { login } = useContext(contexM)
 
-
-
     // err from logout
     const [err, Seterr] = useState("")
     // ends
-    console.log({ err });
 
+    console.log({ err }); // TODO
+
+    // login then we user navigate
     const navigate = useNavigate()
-
-
-    // const location = useLocation()
-
-
-    // const form = location.state?.from?.pathname || '/'
+    const location = useLocation()
+    const where = location.state?.from?.pathname || '/'
+    // ends
 
 
 
@@ -29,18 +26,17 @@ const Login = () => {
         e.preventDefault()
 
         const forom = e.target
-
         const email = forom.email.value
         const password = forom.password.value
 
         console.log({ email }, { password });
 
-
+        // the firebase login system
         login(email, password)
             .then(res => {
                 const user = res.user
-                console.log({user});
-                navigate("/")
+                console.log({ user });
+                navigate(where)
             })
             .catch(err => {
                 console.log(err);

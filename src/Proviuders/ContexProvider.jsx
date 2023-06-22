@@ -3,6 +3,8 @@ import app from './firebase'
 import { createContext } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import axios from 'axios'
+
 
 const auth = getAuth(app)
 
@@ -10,30 +12,33 @@ export const contexM = createContext(null)
 console.log({ contexM });
 
 
-
-
 const ContexProvider = ({ children }) => {
+
+    // loader
+    const [loader, Setloader] = useState(true)
+
+    // ends
 
 
 
     // create user
     const createuser = (email, pass) => {
-
+        Setloader(true)
         return createUserWithEmailAndPassword(auth, email, pass)
     }
 
     // login user
 
     const login = (email, password) => {
-
-        return signInWithEmailAndPassword(auth,email,password)
+        Setloader(true)
+        return signInWithEmailAndPassword(auth, email, password)
 
 
     }
 
     // logout user
     const logout = () => {
-
+        Setloader(true)
 
         return signOut(auth)
 
@@ -50,6 +55,20 @@ const ContexProvider = ({ children }) => {
 
             Setuser(watch)
 
+            if (watch) {
+                axios.post(`http://localhost:5000/jwt`, { email: watch.email })
+                    .then(data => {
+                        console.log(data);
+                        localStorage.setItem('jwt', data.data.token)
+                    })
+            }
+
+            else {
+                localStorage.removeItem('jwt')
+            }
+
+            // loader
+            Setloader(false)
 
         })
 
@@ -78,7 +97,8 @@ const ContexProvider = ({ children }) => {
         createuser,
         login,
         logout,
-        user
+        user,
+        loader
 
     }
 

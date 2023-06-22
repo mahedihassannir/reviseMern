@@ -6,7 +6,7 @@ import { FaCartPlus } from "react-icons/fa";
 import { contexM } from "../Proviuders/ContexProvider";
 import { useState } from "react";
 const Nav = () => {
-    // const [cart] = useCart()
+    const [cart] = useCart()
 
     // user from contex
     const { user, logout } = useContext(contexM)
@@ -42,16 +42,16 @@ const Nav = () => {
 
                         </ul>
                     </div>
-                    <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+                    <a className="btn btn-ghost normal-case text-xl">{user?.email}</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal gap-5 px-1">
 
                         <Link to="/">Home</Link>
 
-                        {/* <Link className="flex btn btn-secondary items-center" to="/order"> <FaCartPlus className="mr-2"></FaCartPlus> + {
+                        <Link to="/cart" className="flex btn btn-secondary items-center"> <FaCartPlus className="mr-2"></FaCartPlus> + {
                             cart?.length || 0
-                        }</Link> */}
+                        }</Link>
 
                         {
                             user ? <img className="rounded-full h-40" src={user.photoURL} alt="" />

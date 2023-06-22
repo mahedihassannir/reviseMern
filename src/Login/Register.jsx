@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { contexM } from "../Proviuders/ContexProvider";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 
 
@@ -38,7 +39,13 @@ const Register = () => {
                 navigate('/')
                 // alert 
                 if (user.email) {
-                    alert(`${user.displayName} account created done`)
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 }
             })
             .catch(err => {
