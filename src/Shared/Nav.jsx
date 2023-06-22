@@ -1,24 +1,33 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { contexM } from "../Proviuders/ContexProvider";
 import useCart from "../Hooks/useCart";
 
 import { FaCartPlus } from "react-icons/fa";
+import { contexM } from "../Proviuders/ContexProvider";
+import { useState } from "react";
 const Nav = () => {
-    const [cart] = useCart()
+    // const [cart] = useCart()
 
-    const { user, HandleSigOut } = useContext(contexM)
+    // user from contex
+    const { user, logout } = useContext(contexM)
 
+    // err form logout
+    const [err, Seterr] = useState(null)
 
 
 
     const handleLogut = () => {
-
-        HandleSigOut()
-            .then(res => res.json())
-            .catch(err => {
-                console.log(err);
+        logout()
+            .then(res => {
+                console.log(res.user);
+                alert("logout done")
             })
+            .catch(err => {
+                console.log(err.massage);
+                Seterr(err.massage)
+
+            })
+
     }
 
     return (
@@ -40,9 +49,9 @@ const Nav = () => {
 
                         <Link to="/">Home</Link>
 
-                        <Link className="flex btn btn-secondary items-center" to="/order"> <FaCartPlus className="mr-2"></FaCartPlus> + {
+                        {/* <Link className="flex btn btn-secondary items-center" to="/order"> <FaCartPlus className="mr-2"></FaCartPlus> + {
                             cart?.length || 0
-                        }</Link>
+                        }</Link> */}
 
                         {
                             user ? <img className="rounded-full h-40" src={user.photoURL} alt="" />
@@ -71,6 +80,7 @@ const Nav = () => {
 
                 </div>
             </div>
+            <h1>{err}</h1>
         </div>
     );
 };

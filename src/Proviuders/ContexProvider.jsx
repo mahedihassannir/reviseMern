@@ -1,97 +1,92 @@
-
-
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth'
-import app from './firebase';
-import { createContext, useEffect, useState } from 'react';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import app from './firebase'
+import { createContext } from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 const auth = getAuth(app)
 
 export const contexM = createContext(null)
-
-
+console.log({ contexM });
 
 
 
 
 const ContexProvider = ({ children }) => {
 
-    const [loading, SetLoading] = useState(true)
 
-    const handleCrate = (email, password) => {
-        SetLoading(true)
-        return createUserWithEmailAndPassword(auth, email, password)
 
+    // create user
+    const createuser = (email, pass) => {
+
+        return createUserWithEmailAndPassword(auth, email, pass)
     }
 
+    // login user
 
-    // here is the singin method
+    const login = (email, password) => {
 
-    const handleSingin = (email, password) => {
-        SetLoading(true)
-
-        return signInWithEmailAndPassword(auth, email, password)
-
-    }
-
-    const provider = new GoogleAuthProvider()
-
-    const popup = () => {
-
-        return signInWithPopup(auth, provider)
+        return signInWithEmailAndPassword(auth,email,password)
 
 
     }
 
+    // logout user
+    const logout = () => {
 
-
-    // here is the sing out method 
-
-    const HandleSigOut = () => {
-        SetLoading(true)
 
         return signOut(auth)
+
     }
+    // ends
 
-    const UpdateUser = (name, PhotoUrl) => {
-        return updateProfile(auth.currentUser, {
-            displayName: name, photoURL: PhotoUrl
-        })
-    }
+    // user state
+    const [user, Setuser] = useState(null)
+    // ends
 
-    const [user, SetUser] = useState(null)
-
+    // user observer
     useEffect(() => {
-
         const off = onAuthStateChanged(auth, watch => {
-            console.log(watch);
-            SetUser(watch)
-            SetLoading(false)
+
+            Setuser(watch)
+
 
         })
+
         return (() => {
+
             off
+
         })
 
-    }), []
+    }, [])
+    // ends
 
+    /**
+     * 
+     * const UpdateUser = (name, image) => {
+        return updateProfile(auth.currentUser, {
+            displayName: name, photoURL: image
+        })
+    }
+    
+     */
 
     const userInfos = {
-        handleCrate,
-        HandleSigOut,
-        handleSingin,
-        user,
-        loading,
-        UpdateUser,
-        popup
+
+
+        createuser,
+        login,
+        logout,
+        user
 
     }
 
 
-    return <contexM.Provider value={userInfos}>\
+    return <contexM.Provider value={userInfos}>
         {children}
     </contexM.Provider>
-
-
 };
 
-export default ContexProvider;
+
+export default ContexProvider

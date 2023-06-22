@@ -1,17 +1,27 @@
 import { useContext } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { contexM } from "../Proviuders/ContexProvider";
+import { useState } from "react";
 
 const Login = () => {
 
+    // user from contex
+    const { login } = useContext(contexM)
+
+
+
+    // err from logout
+    const [err, Seterr] = useState("")
+    // ends
+    console.log({ err });
+
     const navigate = useNavigate()
 
-    const { handleSingin, popup } = useContext(contexM)
 
-    const location = useLocation()
+    // const location = useLocation()
 
 
-    const form = location.state?.from?.pathname || '/'
+    // const form = location.state?.from?.pathname || '/'
 
 
 
@@ -22,57 +32,22 @@ const Login = () => {
 
         const email = forom.email.value
         const password = forom.password.value
-        console.log(email, password);
 
-        handleSingin(email, password)
-
-            .then(res => res.json())
-            .catch(err => {
-                console.log(err);
+        console.log({ email }, { password });
 
 
-
-                navigate(form)
-
-
-
-
-            })
-
-
-
-
-    }
-
-    const handlePopup = () => {
-        popup()
+        login(email, password)
             .then(res => {
-                const info = res.user
-
-                console.log(info);
-
-                const final = { email: info.email, name: info.displayName, image: info.photoURL }
-                fetch(`http://localhost:5000/userinfos`, {
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json"
-                    },
-                    body: JSON.stringify(final)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data);
-
-
-                    })
-                navigate(form)
-
+                const user = res.user
+                console.log({user});
+                navigate("/")
             })
             .catch(err => {
                 console.log(err);
-
-
+                Seterr(err.message)
             })
+
+
 
 
     }
@@ -106,9 +81,9 @@ const Login = () => {
                                 <input name="validate" type="text" placeholder="validate" className="input input-bordered" />
                             </div>
 
-                            <div>
+                            {/* <div>
                                 <button onClick={handlePopup} className="btn btn-primary">google</button>
-                            </div>
+                            </div> */}
 
 
                             <Link to="/register">
@@ -116,7 +91,12 @@ const Login = () => {
                                     new to this website please register
                                 </p>
                             </Link>
+                            {/* err */}
+                            <div>
+                                <p className="text-red-600">{err}</p>
 
+                            </div>
+                            {/* ends */}
                             <div className="form-control mt-6">
                                 <button type="submit" className="btn btn-primary">Login</button>
                             </div>

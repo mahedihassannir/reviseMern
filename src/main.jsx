@@ -3,17 +3,18 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import router from './Routes/router.jsx'
-import ContexProvider from './Proviuders/ContexProvider'
 
 import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import ContexProvider from './Proviuders/ContexProvider'
 
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+
 
     <ContexProvider>
 
@@ -25,8 +26,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </QueryClientProvider>
 
       </div>
-
+      
     </ContexProvider>
+
+
 
   </React.StrictMode>,
 )

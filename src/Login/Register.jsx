@@ -1,18 +1,23 @@
+
 import { useContext } from "react";
-import { contexM } from "../Proviuders/ContexProvider";
 import { Link, useNavigate } from "react-router-dom";
+import { contexM } from "../Proviuders/ContexProvider";
+import { useState } from "react";
 
 
 
 const Register = () => {
 
-    const { handleCrate, UpdateUser } = useContext(contexM)
 
-    // const infos = { email: user.email, name: user.displayName, image: user.PhotoUrl }
-
-
+    // err section 
+    const [err, Seterr] = useState(null)
+    // ends
 
     const navigate = useNavigate()
+
+    // constex from contex
+
+    const { createuser } = useContext(contexM)
 
     const handleLogin = (e) => {
         e.preventDefault()
@@ -25,34 +30,21 @@ const Register = () => {
 
         const infos = { name, email, password, PhotoUrl }
 
-        fetch(`http://localhost:5000/userinfos`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(infos)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-
-
-            })
-
-
-
-        handleCrate(email, password)
+        createuser(email, password)
             .then(res => {
                 const user = res.user
                 console.log(user);
-                UpdateUser(name, PhotoUrl)
-
+                // navigate if user registered successfully 
                 navigate('/')
+                // alert 
+                if (user.email) {
+                    alert(`${user.displayName} account created done`)
+                }
             })
             .catch(err => {
                 console.log(err);
+                Seterr(err.massage)
             })
-
 
 
 

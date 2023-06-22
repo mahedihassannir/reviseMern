@@ -1,9 +1,6 @@
-import { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { contexM } from "../Proviuders/ContexProvider";
 
 const useCart = () => {
-    const { user } = useContext(contexM);
 
     // first get the user from the contex 
 
