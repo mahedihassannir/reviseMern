@@ -1,12 +1,16 @@
 import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { contexM } from "../Proviuders/ContexProvider";
+import Swal from "sweetalert2";
+import useCart from "../Hooks/useCart";
 
 const Home = () => {
 
     const { user } = useContext(contexM)
 
     const [data, Setdata] = useState([])
+
+    const [, refetch] = useCart()
 
     useEffect(() => {
 
@@ -35,7 +39,14 @@ const Home = () => {
                 .then(data => {
                     console.log(data);
                     if (data.insertedId) {
-                        alert("add to cart is done")
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'add to cart successfully',
+                            showConfirmButton: false,
+                            timer: 500
+                        })
+                        refetch()
                     }
                 })
         }

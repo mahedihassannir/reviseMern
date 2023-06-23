@@ -8,6 +8,9 @@ const useCart = () => {
 
     const { user } = useContext(contexM)
 
+    const token = localStorage.getItem('jwt')
+    console.log(token);
+
     // here is the refatch method and data:cart
     const { refetch, data: cart = [] } = useQuery({
 
@@ -15,15 +18,17 @@ const useCart = () => {
 
         queryFn: async () => {
 
-            const res = await fetch(` http://localhost:5000/carts?email=${user?.email}`)
+            const res = await fetch(` http://localhost:5000/carts?email=${user?.email}`, {
+            headers:{authorization:`bearer ${token}`}
+    })
 
-            return res.json();
+    return res.json();
 
-        },
+},
     })
 
 
-    return [cart, refetch] // return the values 
+return [cart, refetch] // return the values 
 
 }
 export default useCart;
