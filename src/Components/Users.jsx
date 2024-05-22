@@ -4,7 +4,7 @@ import { HiAcademicCap, HiArchiveBoxXMark, HiChartBar, HiHome, HiMiniAdjustments
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-const Home = () => {
+const Users = () => {
     const [activeRoute, setActiveRoute] = useState("Home")
     return (
         <div className=' text-black px-5 py-8'>
@@ -242,4 +242,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Users;

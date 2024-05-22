@@ -6,27 +6,10 @@ import { FaCartPlus } from "react-icons/fa";
 import { contexM } from "../Proviuders/ContexProvider";
 import { useState } from "react";
 const Nav = () => {
-    const [cart] = useCart()
-
-    // user from contex
-    const { user, logout } = useContext(contexM)
-
-    // err form logout
-    const [err, Seterr] = useState(null)
-
-
 
     const handleLogut = () => {
-        logout()
-            .then(res => {
-                console.log(res.user);
-                alert("logout done")
-            })
-            .catch(err => {
-                console.log(err.massage);
-                Seterr(err.massage)
 
-            })
+
 
     }
 
@@ -42,20 +25,32 @@ const Nav = () => {
 
                         </ul>
                     </div>
-                    <a className="btn btn-ghost normal-case text-xl">{user?.email}</a>
+
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal gap-5 px-1">
 
                         <Link to="/">Home</Link>
 
-                        <Link to="/cart" className="flex btn btn-secondary items-center"> <FaCartPlus className="mr-2"></FaCartPlus> + {
-                            cart?.length || 0
-                        }</Link>
+                        <Link to="/login">login</Link>
+                        <Link to="/users">Users</Link>
+                        <Link to="/sellers">Sellers</Link>
+                        <Link to="/seller_profile">Profiles</Link>
+                        <Link to="/create_delivery_man">create Delivery man</Link>
+                        <Link to="/All_delivery">All delivery</Link>
+                        <Link to="/with_draw_req">Withdraw Req</Link>
+                        <Link to="/review">review</Link>
+                        <Link to="/wish_list">wish_list</Link>
+                        <Link to="/all_products">all_products</Link>
+                        <Link to="/reports">reports</Link>
+                        <Link to="/user_helpline">user_helpline</Link>
+                        <Link to="/seller_helpline">seller_helpline</Link>
+                        <Link to="/seller_register">seller_register</Link>
+                        <Link to="/user_register">user_register</Link>
 
                         {
-                            user ? <img className="rounded-full h-40" src={user.photoURL} alt="" />
-                                : ""
+                            <img className="rounded-full h-40" src={""} alt="" />
+
                         }
 
 
@@ -64,23 +59,15 @@ const Nav = () => {
                 </div>
                 <div className="navbar-end">
 
-                    {
-                        user ?
-                            <button onClick={handleLogut}>Logout</button>
-                            :
-                            <Link to="/login">Login</Link>
 
-                    }
-
-
-
-
-
+                    <button onClick={handleLogut}>Logout</button>
+                    :
+                    <Link to="/login">Login</Link>
 
 
                 </div>
             </div>
-            <h1>{err}</h1>
+
         </div>
     );
 };

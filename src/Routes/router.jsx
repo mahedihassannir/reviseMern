@@ -9,6 +9,20 @@ import Register from "../Login/Register";
 import Order from "../Pages/Order";
 import PrivateRoute from "../Private/PrivateRoute";
 import Cart from "../Components/Cart";
+import Users from "../Components/Users";
+import Sellers from "../Components/Sellers";
+import AllSellerProfille from "../Components/AllSellerProfille";
+import CreateDeliveryMan from "../Components/CreateDeliveryMan";
+import AllDelivery from "../Components/AllDelivery";
+import WithdrawReq from "../Components/WithdrawReq";
+import Revieew from "../Components/Revieew";
+import WishList from "../Components/WishList";
+import AllPRoducts from "../Components/AllPRoducts";
+import Reports from "../Components/Reports";
+import UHelp from "../Components/UHelp";
+import SHelp from "../Components/SHelp";
+import SellerRegister from "../Components/sellerRegister";
+import UserReg from "../Components/UserReg";
 
 
 const router = createBrowserRouter(
@@ -22,22 +36,66 @@ const router = createBrowserRouter(
                     element: <Home></Home>
                 },
                 {
-                    path: '/cart',
-                    element: <Cart></Cart>
-                },
-
-                {
                     path: '/login',
                     element: <Login></Login>
                 },
                 {
-                    path: '/register',
-                    element: <Register></Register>
+                    path: '/users',
+                    element: <Users></Users>
                 },
                 {
-                    path: '/order',
-                    element: <PrivateRoute> <Order></Order></PrivateRoute>
+                    path: '/sellers',
+                    element: <Sellers></Sellers>
                 },
+                {
+                    path: '/seller_profile',
+                    element: <AllSellerProfille></AllSellerProfille>
+                },
+                {
+                    path: '/create_delivery_man',
+                    element: <CreateDeliveryMan></CreateDeliveryMan>
+                },
+                {
+                    path: '/All_delivery',
+                    element: <AllDelivery></AllDelivery>
+                },
+                {
+                    path: '/with_draw_req',
+                    element: <WithdrawReq></WithdrawReq>
+                },
+                {
+                    path: '/review',
+                    element: <Revieew></Revieew>
+                },
+                {
+                    path: '/wish_list',
+                    element: <WishList></WishList>
+                },
+                {
+                    path: '/all_products',
+                    element: <AllPRoducts></AllPRoducts>
+                },
+                {
+                    path: '/reports',
+                    element: <Reports></Reports>
+                },
+                {
+                    path: '/user_helpline',
+                    element: <UHelp></UHelp>
+                },
+                {
+                    path: '/seller_helpline',
+                    element: <SHelp></SHelp>
+                },
+                {
+                    path: '/seller_register',
+                    element: <SellerRegister></SellerRegister>
+                },
+                {
+                    path: '/user_register',
+                    element: <UserReg></UserReg>
+                },
+
 
             ]
         }
