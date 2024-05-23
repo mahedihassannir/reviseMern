@@ -8,10 +8,11 @@ import { useState } from "react";
 const Nav = () => {
 
     const handleLogut = () => {
-
-
-
+        localStorage.removeItem("adminToken");
+        alert("log out as a admin")
     }
+
+    const token = localStorage.getItem("adminToken");
 
     return (
         <div>
@@ -32,7 +33,16 @@ const Nav = () => {
 
                         <Link to="/">Home</Link>
 
-                        <Link to="/login">login</Link>
+                        {
+                            token ?
+
+                                <Link onClick={handleLogut}>Log out</Link>
+
+                                :
+                                <Link to="/login">login</Link>
+                        }
+
+
                         <Link to="/users">Users</Link>
                         <Link to="/sellers">Sellers</Link>
                         <Link to="/seller_profile">Profiles</Link>
@@ -59,11 +69,14 @@ const Nav = () => {
                 </div>
                 <div className="navbar-end">
 
+                    {
+                        token ?
 
-                    <button onClick={handleLogut}>Logout</button>
-                    :
-                    <Link to="/login">Login</Link>
+                            <Link onClick={handleLogut}>Log out</Link>
 
+                            :
+                            <Link to="/login">login</Link>
+                    }
 
                 </div>
             </div>

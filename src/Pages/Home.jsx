@@ -3,6 +3,7 @@ import { BsChatRightDotsFill } from 'react-icons/bs';
 import { HiAcademicCap, HiArchiveBoxXMark, HiChartBar, HiHome, HiMiniAdjustmentsHorizontal, HiMiniCalculator, HiMiniUsers, HiOutlineFolder, HiUsers } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { FaPerson } from 'react-icons/fa6';
 
 const Home = () => {
     const [activeRoute, setActiveRoute] = useState("Home")
@@ -27,7 +28,7 @@ const Home = () => {
             <div className='text-left flex flex-col gap-1 mt-8 mx-3 font-normal'>
                 {/* nav items */}
                 {/* Home */}
-                <Link to={"/login"}>
+                <Link to={"home"}>
                     <div
                         onClick={() => setActiveRoute("Home")}
                         className={`flex hover:bg-[#19D895] duration-700 items-center p-2 ${activeRoute === "Home"
@@ -40,7 +41,7 @@ const Home = () => {
                     </div>
                 </Link>
 
-                <Link to={""}>
+                <Link to={"All_delivery"}>
                     <div
                         onClick={() => setActiveRoute("Investment")}
                         className={`flex hover:bg-[#19D895] duration-700 items-center p-2  cursor-pointer  ${activeRoute === "Investment"
@@ -53,7 +54,7 @@ const Home = () => {
                     </div>
                 </Link>
                 {/* Transactions */}
-                <div
+                <Link to={"users"}
                     onClick={() => setActiveRoute("Transactions")}
                     className={`flex hover:bg-[#19D895] duration-700 justify-between relative p-2 ${activeRoute === "Transactions"
                         ? "bg-[#19D895] text-[#0A1727]"
@@ -69,10 +70,27 @@ const Home = () => {
                     >
                         <small>45</small>
                     </div>
-                </div>
+                </Link>
+                <Link to={"sellers"}
+                    onClick={() => setActiveRoute("Sellers")}
+                    className={`flex hover:bg-[#19D895] duration-700 justify-between relative p-2 ${activeRoute === "Sellers"
+                        ? "bg-[#19D895] text-[#0A1727]"
+                        : ""
+                        } cursor-pointer gap-4`}
+                >
+                    <div className='flex items-center gap-4'>
+                        <FaPerson className='w-4 h-4'></FaPerson>
+                        <h4>Sellers</h4>
+                    </div>
+                    <div
+                        className={`flex hover:bg-[#19D895] duration-700 items-center justify-center py-2 px-3 absolute bg-[#8E6CE5] w-[20px] h-[20px] mt-3 rounded-lg -top-[2px] right-2`}
+                    >
+                        <small>45</small>
+                    </div>
+                </Link>
 
                 {/* Orders */}
-                <Link to={""}>
+                <Link to={"seller_profile"}>
                     <div
                         onClick={() => setActiveRoute("Orders")}
                         className={`flex hover:bg-[#19D895] duration-700 items-center p-2  cursor-pointer ${activeRoute === "Orders"
@@ -111,7 +129,7 @@ const Home = () => {
                 </Link>
 
                 {/* Members */}
-                <Link to={""}>
+                <Link to={"create_delivery_man"}>
                     <div
                         onClick={() => setActiveRoute("Members")}
                         className={`flex hover:bg-[#19D895] duration-700 items-center p-2  cursor-pointer  ${activeRoute === "Members"
@@ -125,7 +143,7 @@ const Home = () => {
                 </Link>
 
                 {/* customer */}
-                <Link to={""}>
+                <Link to={"with_draw_req"}>
                     <div
                         onClick={() => setActiveRoute("Analytics")}
                         className={`flex hover:bg-[#19D895] duration-700 items-center p-2  cursor-pointer  ${activeRoute === "Analytics"
@@ -139,7 +157,7 @@ const Home = () => {
                 </Link>
 
                 {/* Reporting */}
-                <div
+                <Link to={"review"}
                     onClick={() => setActiveRoute("Reporting")}
                     className={`flex hover:bg-[#19D895] duration-700 items-center p-2  cursor-pointer  ${activeRoute === "Reporting"
                         ? "bg-[#19D895] text-[#0A1727]"
@@ -148,9 +166,9 @@ const Home = () => {
                 >
                     <HiMiniUsers className='w-4 h-4'></HiMiniUsers>
                     <h4>review</h4>
-                </div>
+                </Link>
                 {/* Back Accounts */}
-                <div
+                <Link to={"wish_list"}
                     onClick={() => setActiveRoute("Back Accounts")}
                     className={`flex hover:bg-[#19D895] duration-700 items-center p-2  cursor-pointer  ${activeRoute === "Back Accounts"
                         ? "bg-[#19D895] text-[#0A1727]"
@@ -159,9 +177,9 @@ const Home = () => {
                 >
                     <HiArchiveBoxXMark className='w-4 h-4'></HiArchiveBoxXMark>
                     <h4>Wishlist</h4>
-                </div>
+                </Link>
                 {/* Admin/HR */}
-                <div
+                <Link to={'all_products'}
                     onClick={() => setActiveRoute("Admin/HR")}
                     className={`flex hover:bg-[#19D895] duration-700 items-center p-2  cursor-pointer  ${activeRoute === "Admin/HR"
                         ? "bg-[#19D895] text-[#0A1727]"
@@ -170,8 +188,8 @@ const Home = () => {
                 >
                     <HiAcademicCap className='w-4 h-4'></HiAcademicCap>
                     <h4>All products</h4>
-                </div>
-                <div
+                </Link>
+                <Link to={"reports"}
                     onClick={() => setActiveRoute("Admin/HR")}
                     className={`flex hover:bg-[#19D895] duration-700 items-center p-2  cursor-pointer  ${activeRoute === "Admin/HR"
                         ? "bg-[#19D895] text-[#0A1727]"
@@ -180,8 +198,8 @@ const Home = () => {
                 >
                     <HiAcademicCap className='w-4 h-4'></HiAcademicCap>
                     <h4>Reports</h4>
-                </div>
-                <div
+                </Link>
+                <Link to={"user_helpline"}
                     onClick={() => setActiveRoute("Admin/HR")}
                     className={`flex hover:bg-[#19D895] duration-700 items-center p-2  cursor-pointer  ${activeRoute === "Admin/HR"
                         ? "bg-[#19D895] text-[#0A1727]"
@@ -190,9 +208,9 @@ const Home = () => {
                 >
                     <HiAcademicCap className='w-4 h-4'></HiAcademicCap>
                     <h4>Uhelpline</h4>
-                </div>
+                </Link>
 
-                <div
+                <Link to={"wish_list"}
                     onClick={() => setActiveRoute("Back Accounts")}
                     className={`flex hover:bg-[#19D895] duration-700 items-center p-2  cursor-pointer  ${activeRoute === "Back Accounts"
                         ? "bg-[#19D895] text-[#0A1727]"
@@ -201,7 +219,7 @@ const Home = () => {
                 >
                     <HiArchiveBoxXMark className='w-4 h-4'></HiArchiveBoxXMark>
                     <h4>Wishlist</h4>
-                </div>
+                </Link>
 
                 <div
                     onClick={() => setActiveRoute("Back Accounts")}
@@ -213,7 +231,7 @@ const Home = () => {
                     <HiArchiveBoxXMark className='w-4 h-4'></HiArchiveBoxXMark>
                     <h4>All products</h4>
                 </div>
-                <div
+                <Link to={"seller_register"}
                     onClick={() => setActiveRoute("Back Accounts")}
                     className={`flex hover:bg-[#19D895] duration-700 items-center p-2  cursor-pointer  ${activeRoute === "Back Accounts"
                         ? "bg-[#19D895] text-[#0A1727]"
@@ -222,8 +240,8 @@ const Home = () => {
                 >
                     <HiArchiveBoxXMark className='w-4 h-4'></HiArchiveBoxXMark>
                     <h4>Seller register</h4>
-                </div>
-                <div
+                </Link>
+                <Link to={"user_register"}
                     onClick={() => setActiveRoute("Back Accounts")}
                     className={`flex hover:bg-[#19D895] duration-700 items-center p-2  cursor-pointer  ${activeRoute === "Back Accounts"
                         ? "bg-[#19D895] text-[#0A1727]"
@@ -232,7 +250,7 @@ const Home = () => {
                 >
                     <HiArchiveBoxXMark className='w-4 h-4'></HiArchiveBoxXMark>
                     <h4>User register</h4>
-                </div>
+                </Link>
 
             </div>
 

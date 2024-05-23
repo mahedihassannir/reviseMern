@@ -23,6 +23,7 @@ import UHelp from "../Components/UHelp";
 import SHelp from "../Components/SHelp";
 import SellerRegister from "../Components/sellerRegister";
 import UserReg from "../Components/UserReg";
+import AdminHome from "../Components/AdminHome";
 
 
 const router = createBrowserRouter(
@@ -33,31 +34,68 @@ const router = createBrowserRouter(
             children: [
                 {
                     path: '/',
-                    element: <Home></Home>
+                    element:
+                        <PrivateRoute>
+                            <Home></Home>
+                        </PrivateRoute>
                 },
+
+                {
+                    path: '/home',
+                    element:
+                        <PrivateRoute>
+
+                            <AdminHome></AdminHome>
+                        </PrivateRoute>
+                },
+
                 {
                     path: '/login',
                     element: <Login></Login>
                 },
                 {
                     path: '/users',
-                    element: <Users></Users>
+                    element:
+                        <PrivateRoute>
+
+                            <Users></Users>
+                        </PrivateRoute>
                 },
                 {
                     path: '/sellers',
-                    element: <Sellers></Sellers>
+                    element:
+                        <PrivateRoute>
+
+                            <Sellers></Sellers>
+                        </PrivateRoute>
+
                 },
                 {
                     path: '/seller_profile',
-                    element: <AllSellerProfille></AllSellerProfille>
+                    element:
+                        <PrivateRoute>
+
+
+                            <AllSellerProfille></AllSellerProfille>
+                        </PrivateRoute>
                 },
                 {
                     path: '/create_delivery_man',
-                    element: <CreateDeliveryMan></CreateDeliveryMan>
+                    element:
+                        <PrivateRoute>
+
+
+                            <CreateDeliveryMan></CreateDeliveryMan>
+                        </PrivateRoute>
                 },
                 {
                     path: '/All_delivery',
-                    element: <AllDelivery></AllDelivery>
+                    element:
+                        <PrivateRoute>
+
+
+                            <AllDelivery></AllDelivery>
+                        </PrivateRoute>
                 },
                 {
                     path: '/with_draw_req',

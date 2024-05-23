@@ -29,30 +29,30 @@ const Login = () => {
         const email = forom.email.value
         const password = forom.password.value
 
-        console.log({ email }, { password });
+        console.log(email, password);
+        fetch(`http://localhost:5000/api/v1/admin/auth/login`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.code === 200) {
+                    localStorage.setItem("adminToken", data?.data?.access_token);
+                    navigate("/")
+                }
+            });
 
-        // the firebase login system
-        login(email, password)
-            .then(res => {
-                const user = res.user
-                console.log({ user });
-                navigate(where)
-            })
-            .catch(err => {
-                console.log(err);
-                Seterr(err.message)
-            })
-
-
-
-
-    }
+    };
 
     return (
         <div>
             <h1 className="text-3xl text-center font-bold text-red-600">Hey bro you are in Login page</h1>
             <div className="hero min-h-screen ">
-                <div className="hero-content  w-1/2 flex-col lg:flex-row-reverse">
+                <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <form onSubmit={handleLogin} className="card-body">
                             <div className="form-control">
@@ -69,28 +69,9 @@ const Login = () => {
 
 
                             </div>
-                            {/* captcha */}
-                            <div>
-
-
-
-                                <input name="validate" type="text" placeholder="validate" className="input input-bordered" />
-                            </div>
-
-                            {/* <div>
-                                <button onClick={handlePopup} className="btn btn-primary">google</button>
-                            </div> */}
-
-
-                            <Link to="/register">
-                                <p className="link">
-                                    new to this website please register
-                                </p>
-                            </Link>
                             {/* err */}
                             <div>
                                 <p className="text-red-600">{err}</p>
-
                             </div>
                             {/* ends */}
                             <div className="form-control mt-6">
