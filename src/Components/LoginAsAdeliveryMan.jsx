@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { contexM } from "../Proviuders/ContexProvider";
 import { useState } from "react";
 
-const Login = () => {
+const LoginAsAdeliveryMan = () => {
 
     // user from contex
     const { login } = useContext(contexM)
@@ -30,7 +30,7 @@ const Login = () => {
         const password = forom.password.value
 
         console.log(email, password);
-        fetch(`http://localhost:5000/api/v1/admin/auth/login`, {
+        fetch(`http://localhost:5000/api/v1/admin/auth/delivery_man/login`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -41,7 +41,8 @@ const Login = () => {
             .then(data => {
                 console.log(data);
                 if (data.code === 200) {
-                    localStorage.setItem("adminToken", data?.data?.access_token);
+                    localStorage.setItem("dId", data?.data?.access_token);
+                    localStorage.setItem("dAId", data?.data?.id);
                     navigate("/")
                 }
             });
@@ -50,7 +51,7 @@ const Login = () => {
 
     return (
         <div>
-            <h1 className="text-3xl text-center font-bold text-red-600">Admin Login</h1>
+            <h1 className="text-3xl text-center font-bold text-red-600">Delivery man Login</h1>
             <div className="hero min-h-screen ">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -75,8 +76,8 @@ const Login = () => {
                             </div>
 
                             <div>
-                                <Link to={"/delivery/login"} className="underline">
-                                    Login as a delivery man
+                                <Link to={"/login"} className="underline">
+                                    Login as a admin
                                 </Link>
                             </div>
                             {/* ends */}
@@ -91,4 +92,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginAsAdeliveryMan;

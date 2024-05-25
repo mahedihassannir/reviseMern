@@ -9,10 +9,12 @@ const Nav = () => {
 
     const handleLogut = () => {
         localStorage.removeItem("adminToken");
-        alert("log out as a admin")
+        localStorage.removeItem("dId");
+        alert("log out")
     }
 
-    const token = localStorage.getItem("adminToken");
+    const admin = localStorage.getItem("adminToken");
+    const deliveryMan = localStorage.getItem("dId");
 
     return (
         <div>
@@ -31,22 +33,20 @@ const Nav = () => {
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal gap-5 px-1">
 
+                        <div className="mr-10">
+                            {admin || deliveryMan ? (
+                                <Link onClick={handleLogut}>Logout</Link>
+                            ) : (
+                                <Link to="/login">Login</Link>
+                            )}
+
+                        </div>
+
                         <Link to="/">Home</Link>
-
-                        {
-                            token ?
-
-                                <Link onClick={handleLogut}>Log out</Link>
-
-                                :
-                                <Link to="/login">login</Link>
-                        }
-
 
                         <Link to="/users">Users</Link>
                         <Link to="/sellers">Sellers</Link>
                         <Link to="/seller_profile">Profiles</Link>
-                        <Link to="/create_delivery_man">create Delivery man</Link>
                         <Link to="/All_delivery">All delivery</Link>
                         <Link to="/with_draw_req">Withdraw Req</Link>
                         <Link to="/review">review</Link>
@@ -55,7 +55,7 @@ const Nav = () => {
                         <Link to="/reports">reports</Link>
                         <Link to="/user_helpline">user_helpline</Link>
                         <Link to="/seller_helpline">seller_helpline</Link>
-                        <Link to="/seller_register">seller_register</Link>
+                        <Link to="/create_delivery_man">seller_register</Link>
                         <Link to="/user_register">user_register</Link>
 
                         {
@@ -68,16 +68,11 @@ const Nav = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-
-                    {
-                        token ?
-
-                            <Link onClick={handleLogut}>Log out</Link>
-
-                            :
-                            <Link to="/login">login</Link>
-                    }
-
+                    {admin || deliveryMan ? (
+                        <Link onClick={handleLogut}>Logout</Link>
+                    ) : (
+                        <Link to="/login">Login</Link>
+                    )}
                 </div>
             </div>
 

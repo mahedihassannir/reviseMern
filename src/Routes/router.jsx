@@ -24,6 +24,14 @@ import SHelp from "../Components/SHelp";
 import SellerRegister from "../Components/sellerRegister";
 import UserReg from "../Components/UserReg";
 import AdminHome from "../Components/AdminHome";
+import SellerPersonalDetails from "../Components/SellerPersonalDetails";
+import ManageProducts from "../Components/ManageProducts";
+import AllDeliveryMans from "../Components/AllDeliveryMans";
+import WithDrawRejected from "../Components/WithDrawRejected";
+import WithDrawCompleted from "../Components/WithDrawCompleted";
+import LoginAsAdeliveryMan from "../Components/LoginAsAdeliveryMan";
+import DeliveryManHome from "../Components/deliverySyatemPages/DeliveryManHome";
+import DeliveryManPrivateRoute from "../Private/delivaryManRoute";
 
 
 const router = createBrowserRouter(
@@ -35,9 +43,9 @@ const router = createBrowserRouter(
                 {
                     path: '/',
                     element:
-                        <PrivateRoute>
-                            <Home></Home>
-                        </PrivateRoute>
+
+                        <Home></Home>
+
                 },
 
                 {
@@ -89,6 +97,16 @@ const router = createBrowserRouter(
                         </PrivateRoute>
                 },
                 {
+                    path: '/seller_personal_form',
+                    element:
+                        <PrivateRoute>
+
+
+                            <SellerPersonalDetails></SellerPersonalDetails>
+
+                        </PrivateRoute>
+                },
+                {
                     path: '/All_delivery',
                     element:
                         <PrivateRoute>
@@ -130,9 +148,42 @@ const router = createBrowserRouter(
                     element: <SellerRegister></SellerRegister>
                 },
                 {
+                    path: '/seller_register',
+                    element: <SellerRegister></SellerRegister>
+                },
+                {
                     path: '/user_register',
                     element: <UserReg></UserReg>
                 },
+                {
+                    path: '/manage_products/:id',
+                    element: <ManageProducts></ManageProducts>
+                },
+                {
+                    path: '/deliverymans',
+                    element: <AllDeliveryMans></AllDeliveryMans>
+                },
+                {
+                    path: '/withdraw_completed',
+                    element: <WithDrawCompleted></WithDrawCompleted>
+                },
+                {
+                    path: '/withdraw_rejected',
+                    element: <WithDrawRejected></WithDrawRejected>
+                },
+                {
+                    path: '/delivery/login',
+                    element: <LoginAsAdeliveryMan></LoginAsAdeliveryMan>
+                },
+
+                {
+                    path: '/delivery_man/home',
+                    element:
+                        <DeliveryManPrivateRoute>
+                            <DeliveryManHome></DeliveryManHome>
+                        </DeliveryManPrivateRoute>
+                },
+
 
 
             ]
