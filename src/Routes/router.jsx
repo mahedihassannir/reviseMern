@@ -175,7 +175,21 @@ const router = createBrowserRouter(
                     path: '/delivery/login',
                     element: <LoginAsAdeliveryMan></LoginAsAdeliveryMan>
                 },
-
+                // all delivery man routes
+                {
+                    path: '/delivery_man/home',
+                    element:
+                        <DeliveryManPrivateRoute>
+                            <DeliveryManHome></DeliveryManHome>
+                        </DeliveryManPrivateRoute>
+                },
+                {
+                    path: '/delivery_man/delivery_req',
+                    element:
+                        <DeliveryManPrivateRoute>
+                            <DeliveryManHome></DeliveryManHome>
+                        </DeliveryManPrivateRoute>
+                },
                 {
                     path: '/delivery_man/home',
                     element:

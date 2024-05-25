@@ -53,8 +53,8 @@ const AllDeliveryMans = () => {
                             <td className=' w-[50%] '>
                                 <div className='flex items-start   gap-3 w-full pr-5'>
                                     {/* seller image  */}
-                                    <div className='w-[120px] h-32  p-2 border border-blue-600'>
-                                        <img className='h-32 w-full'
+                                    <div className='w-[140px] h-32  p-2 border border-blue-600'>
+                                        <img className='w-full h-32'
                                             src={data?.imageUrl}
                                             alt=''
                                         />

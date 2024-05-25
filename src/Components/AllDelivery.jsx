@@ -101,7 +101,7 @@ const AllDelivery = () => {
             <section className='w-full m-5'>
                 <h1 className='text-lg font-semibold'>Delivery Mans</h1>
 
-                <div className='grid-cols-12'>
+                <div className='grid md:grid-cols-6 grid-cols-1 gap-2'>
                     {
                         deliveryMans?.result.map(res => <div className='border-2 w-[250px] p-2 ' key={res._id}>
 

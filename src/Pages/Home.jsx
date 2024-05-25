@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BsChatRightDotsFill } from 'react-icons/bs';
 import { HiAcademicCap, HiArchiveBoxXMark, HiChartBar, HiHome, HiMiniAdjustmentsHorizontal, HiMiniCalculator, HiMiniUsers, HiOutlineFolder, HiUsers } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { FaPerson } from 'react-icons/fa6';
+import { FaRegQuestionCircle } from 'react-icons/fa';
 
 const Home = () => {
     const [activeRoute, setActiveRoute] = useState("Home")
@@ -11,6 +12,42 @@ const Home = () => {
 
     const admin = localStorage.getItem("adminToken");
     const deliveryMan = localStorage.getItem("dId");
+    const id = localStorage.getItem("dAId");
+
+    // edns
+    const [man, setDeliveryMan] = useState(null);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/api/v1/admin/delivery/profile?id=${id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${deliveryMan}`
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to all users');
+                }
+                const data = await response.json();
+                setDeliveryMan(data);
+            } catch (error) {
+                // setError(error.message);
+
+            } finally {
+                // setLoading(false);
+            }
+        };
+
+        if (deliveryMan) {
+            fetchProducts();
+        }
+
+    }, [deliveryMan]);
+
+    console.log(man);
+
 
     return (
         <section>
@@ -279,16 +316,16 @@ const Home = () => {
                         <div className='flex items-center justify-center'>
                             <img
                                 className='w-[80px] h-[80px] rounded-[50%] '
-                                src='https://i.ibb.co/sQkv44X/433964772-388189894018458-4603554648629716858-n.jpg'
+                                src={man?.result?.imageUrl}
                                 alt=''
                             />
                         </div>
                         <div className='text-center'>
-                            <h3 className='mt-3 font-semibold text-4xl text-red-500'>Mahedi Hassan Nir</h3>
-                            <h4>mahedi@gmail.com</h4>
+                            <h3 className='mt-3 font-semibold text-4xl text-red-500'>{man?.result?.name}</h3>
+                            <h4>{man?.result?.email}</h4>
                             <Link to='/'>
                                 <button className='bg-[#19D895] w-[90%] mt-4 font-normal px-12 py-2 rounded-sm'>
-                                    CEO
+                                    {man?.result?.role}
                                 </button>
                             </Link>
                         </div>
@@ -302,9 +339,10 @@ const Home = () => {
                                         } cursor-pointer  gap-4`}
                                 >
                                     <HiHome className='w-4 h-4'></HiHome>
-                                    <h4> Home</h4>
+                                    <h4>DELIVERY REQ</h4>
                                 </div>
                             </Link>
+
                             {/* Add other delivery man specific links here */}
                         </div>
                     </div>
