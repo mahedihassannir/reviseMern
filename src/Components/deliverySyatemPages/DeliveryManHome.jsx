@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { Link } from "react-router-dom";
@@ -40,6 +41,128 @@ const DeliveryManHome = () => {
     }, [deliveryMan]);
 
     console.log(man);
+    const data = man?.result?.deliveryReq
+    console.log(data);
+    // const calculateTotalPrice = (deliveryReq) => {
+    //     if (!Array.isArray(deliveryReq)) return 0;
+    //     console.log(deliveryReq);
+    //     return deliveryReq.reduce((total, req) => {
+    //         const reqTotal = Array.isArray(req.products) ? req.products.reduce((subTotal, product) => {
+    //             const price = product?.product?.price || 0;
+    //             console.log(price);
+    //             const quantity = product.quantity || 1;
+    //             return subTotal + (price * quantity);
+    //             // console.log(product?.product?.price);
+    //         }, 0) : 0;
+
+    //         return total + reqTotal;
+    //     }, 0);
+    // };
+
+    // const totalPrice = calculateTotalPrice(data);
+    // console.log(totalPrice);
+    // const calculateTotalPrice = (deliveryReq) => {
+    //     if (!Array.isArray(deliveryReq)) return 0;
+
+    //     return deliveryReq.reduce((total, req) => {
+    //         const reqTotal = Array.isArray(req.products) ? req.products.reduce((subTotal, product) => {
+    //             const price = product?.product?.price || 0;
+    //             const quantity = product.quantity || 1;
+    //             const totalPriceForProduct = price * quantity;
+    //             const totalPriceWithExtra = totalPriceForProduct + (5 * quantity); // Add 5 taka extra for each quantity
+    //             return subTotal + totalPriceWithExtra;
+    //         }, 0) : 0;
+
+    //         return total + reqTotal;
+    //     }, 0);
+    // };
+    // const totalPrice = calculateTotalPrice(data);
+    // console.log(totalPrice + 5);
+    // Assuming `products` is the array of products
+    // const calculateIndexTotalPrice = (deliveryReq) => {
+    //     if (!Array.isArray(deliveryReq)) return [];
+    //     console.log(deliveryReq);
+    //     // Iterate over each element of the deliveryReq array
+    //     return deliveryReq.map((req) => {
+    //         // Calculate the total price for products within each deliveryReq element
+    //         return req.products.reduce((totalPrice, product) => {
+    //             // Extracting price and quantity from each product
+    //             console.log(product);
+    //             const price = product?.product?.price || 0;
+    //             console.log(price);
+    //             const quantity = product.quantity || 1;
+    //             console.log(quantity);
+
+    //             // Calculate the total price for the current product
+    //             const totalPriceForProduct = price * quantity;
+
+    //             // Add 5 taka extra for each quantity
+    //             const totalPriceWithExtra = totalPriceForProduct + (5 * quantity);
+
+    //             // Add the total price for the current product to the running total
+    //             return totalPrice + totalPriceWithExtra;
+    //         }, 0);
+    //     });
+    // };
+
+    // // Assuming 'result' contains the data you provided
+    // const deliveryReqTotalPrices = calculateIndexTotalPrice(data);
+    // console.log(deliveryReqTotalPrices);
+
+
+
+    const handleConfirm = async (id) => {
+
+        const deliveryAccountIid = localStorage.getItem("dAId");
+        const dToken = localStorage.getItem("dId");
+        try {
+            const response = await axios.post(`http://localhost:5000/api/v1/admin/delivery/confirm?deliveryId=${id}&acId=${deliveryAccountIid}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${dToken}`
+                }
+            });
+
+            console.log(response.data); // Log the response data
+            // Handle success
+        } catch (error) {
+            console.error('Error:', error);
+            // Handle error
+        }
+
+
+    }
+    const handleCancel = (id) => {
+        console.log(id);
+
+    }
+
+    const calculateIndexTotalPrice = (deliveryReq) => {
+        if (!Array.isArray(deliveryReq)) return [];
+
+        // Iterate over each element of the deliveryReq array
+        return deliveryReq.map((req) => {
+            // Calculate the total price for products within each deliveryReq element
+            return req.products.reduce((totalPrice, product) => {
+                // Extracting price and quantity from each product
+                const price = product?.product?.price || 0;
+                const quantity = product.quantity || 1;
+
+                // Calculate the total price for the current product
+                const totalPriceForProduct = price * quantity;
+
+                // Add 5 taka for each product in the products array
+                const totalPriceWithExtra = totalPriceForProduct + (5 * req.products.length);
+
+                // Add the total price for the current product to the running total
+                return totalPrice + totalPriceWithExtra;
+            }, 0);
+        });
+    };
+
+    // Assuming 'result' contains the data you provided
+    const deliveryReqTotalPrices = calculateIndexTotalPrice(data);
+    console.log(deliveryReqTotalPrices);
     return (
         <div>
             <ToastContainer />
@@ -263,7 +386,7 @@ const DeliveryManHome = () => {
             <div>
                 {/* <OrdersTable></OrdersTable> */}
                 <div className="min-w-full">
-                    <form onSubmit={""} className="text-[11px]  w-full">
+                    <div className="text-[11px]  w-full">
                         {/* order table head  */}
 
 
@@ -288,7 +411,7 @@ const DeliveryManHome = () => {
                                             <div className="">
 
 
-                                                <button type='submit' className="py-2 px-5 border-2 bg-blue-700 text-white font-semibold border-red-300">
+                                                <button onClick={() => handleConfirm(res._id)} type='submit' className="py-2 px-5 border-2 bg-blue-700 text-white font-semibold border-red-300">
 
                                                     CONFIRM
 
@@ -296,7 +419,7 @@ const DeliveryManHome = () => {
 
 
                                             </div>
-                                            <div className="">
+                                            <div onClick={() => handleCancel(res._id)} className="">
 
 
                                                 <button type='submit' className="py-2 px-5 border-2 bg-red-500 text-white font-semibold border-red-300">
@@ -341,14 +464,7 @@ const DeliveryManHome = () => {
                                                         {/* {} */}
                                                         <span> <TbCurrencyTaka />
 
-
-                                                            {res?.products?.map((product, index) => (
-                                                                <span key={index}>
-                                                                    {/* {product?.product?.price} */}
-                                                                </span>
-
-                                                            ))}
-
+                                                            {deliveryReqTotalPrices[0]}
                                                         </span>
                                                     </p>
                                                 </p>
@@ -360,14 +476,28 @@ const DeliveryManHome = () => {
                                             <div className="w-full p-2 ">
 
                                                 <ul>
+                                                    <img className="w-10 h-10" src={res?.deliveredToUser?.profileImage} alt="" />
                                                     <li className="text-[13px] font-semibold">date: <span className="text-red-500">{res?.date}</span></li>
 
 
-                                                    <li className="text-[13px] font-semibold">customer  name: <span className="text-red-500">{ }</span></li>
+                                                    <li className="text-[13px] font-semibold">customer  name: <span className="text-red-500">
+                                                        {res?.deliveredToUser?.name}
+                                                    </span> <span className="text-red-500">{ }</span></li>
 
-                                                    <li className="text-[13px] font-semibold">status: <span className="text-red-500">{res?.status}</span></li>
 
-                                                    <li className="text-[13px] font-semibold">paymentMethod: <span className="text-red-500">{ }</span></li>
+                                                    <li className="text-[13px] font-semibold">paymentMethod: <span className="text-red-500">COD</span></li>
+
+                                                    <li className="text-[13px] font-semibold">email: <span className="text-red-500">
+                                                        {res?.deliveredToUser?.email}
+                                                    </span> <span className="text-red-500">{ }</span></li>
+
+                                                    <li className="text-[13px] font-semibold">mobile: <span className="text-red-500">
+                                                        {res?.deliveredToUser?.address?.mobile_number}
+                                                    </span> <span className="text-red-500">{ }</span></li>
+
+                                                    <li className="text-[13px] font-semibold">address: <span className="text-red-500">
+                                                        {res?.deliveredToUser?.address?.area}
+                                                    </span> <span className="text-red-500">{ }</span></li>
 
                                                 </ul>
 
@@ -380,21 +510,31 @@ const DeliveryManHome = () => {
                                         {/* ends of the product sheeping detail */}
 
 
-                                        <div className=" w-full grid md:grid-cols-12 grid-cols-3 lg:w-[80%]  ">
+                                        <div className=" w-full grid md:grid-cols-12 grid-cols-2 gap-2 lg:w-[80%]  ">
                                             {/* {Object.values(item.order.cart).map((cartItem, cartIndex) => (  */}
 
                                             {res?.products?.map((product, index) => (
-                                                // <div key={index}>
-                                                //     {/* Mapping over the product images */}
-                                                //     <img src={product?.product_images[0]} alt="" />
-                                                // </div>
-                                                // console.log(product?.product?.product_images[0])
-                                                <div className='' key={index}>
-                                                    {/* <img className='w-20 h-20' src={product?.product?.product_images[0]} alt="" /> */}
-                                                    <br />
-                                                    {/* <p>{product?.product?.product_title}</p> */}
+                                                <div key={index}>
+                                                    {/* Mapping over the product images */}
+                                                    <div className="">
+                                                        <img src={product?.product?.product_images[0]} alt="" />
 
+                                                    </div>
+                                                    <br />
+                                                    <div>
+                                                        <p>{product?.product?.product_name}</p>
+                                                        <div className="w-28 block">
+                                                            <p className="text-md">seller store: <span className="text-red-500">{product?.product?.seller?.store_address}</span></p>
+
+                                                            <p className="text-md ">seller name: <span className="text-red-500">{product?.product?.seller?.name}</span></p>
+
+                                                            <p className="text-md ">seller number: <span className="text-red-500">{product?.product?.seller?.mobile_number}</span></p>
+
+                                                        </div>
+                                                    </div>
                                                 </div>
+
+
                                             ))}
 
                                             <div>
@@ -431,7 +571,7 @@ const DeliveryManHome = () => {
                         {/* here is the order manage tables  ends*/}
 
 
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
