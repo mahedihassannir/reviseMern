@@ -1,6 +1,9 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { TbCurrencyTaka } from 'react-icons/tb';
+import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 const AllDelivery = () => {
     const adminToken = localStorage.getItem("adminToken");
@@ -10,8 +13,8 @@ const AllDelivery = () => {
     const [error, setError] = useState(null);
     const { modalIsOpen, setModalIsOpen } = useState();
     console.log(modalIsOpen)
-
     const [deliveryMans, setDeliveryMans] = useState(null);
+    const [deliveryManId, setDeliveryManId] = useState();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -94,27 +97,59 @@ const AllDelivery = () => {
     //     }, 0); // Initialize total to 0
     // };
     // const totalPrice = calculateTotalPrice(delevaries?.result?.products);
+
+    const handleDeliveryMan = (id) => {
+        console.log(id);
+        setDeliveryManId(id)
+    };
+
+    const handleDeliveryManWithDeliveryHead = async (id) => {
+        console.log(id);
+        console.log(deliveryManId);
+        const dToken = localStorage.getItem("dId");
+        try {
+            const response = await axios.post(`http://localhost:5000/api/v1/admin/delivery/send_to_delivery_man?deliveryManId=${deliveryManId}&deliveryIdReq=${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${dToken}`
+                }
+            });
+            console.log(response.data);
+            if (response.data.code === 200) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Req Send To The Delivery Man Successful',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+            // Handle success
+        } catch (error) {
+            console.error('Error:', error);
+            // Handle error
+        }
+    };
+
     return (
         <div>
             <ToastContainer />
 
             <section className='w-full m-5'>
                 <h1 className='text-lg font-semibold'>Delivery Mans</h1>
-
                 <div className='grid md:grid-cols-6 grid-cols-1 gap-2'>
                     {
-                        deliveryMans?.result.map(res => <div className='border-2 w-[250px] p-2 ' key={res._id}>
-
-                            <img className='w-14 h-14' src={res?.imageUrl} alt="" />
-                            <p>
-                                {res.name}
-                            </p>
-                            <p>
-                                {res._id}
-                            </p>
-
-
-                        </div>)
+                        deliveryMans?.result.map(res =>
+                            <div
+                                onClick={() => handleDeliveryMan(res._id)}
+                                className={`cursor-pointer border-2 w-[250px] p-2 ${deliveryManId === res._id ? 'border-red-500 border-4' : 'border-gray-300'}`}
+                                key={res._id}
+                            >
+                                <img className='w-14 h-14' src={res?.imageUrl} alt="" />
+                                <p>{res.name}</p>
+                                <p>{res._id}</p>
+                            </div>
+                        )
                     }
                 </div>
 
@@ -244,6 +279,20 @@ const AllDelivery = () => {
                 </ul>
             </div>
 
+            <div className=' text-lg font-semibold flex justify-center items-center mt-5  w-[200px] h-[120px]'>
+
+                <span className='pr-2'>
+                    Total Delivery Req:
+                </span>
+
+                <p className='text-red-500'>
+
+                    {delevaries?.result?.length}
+
+                </p>
+
+            </div>
+
             <div className="flex justify-between mt-10">
                 <div>
                     <ul className="flex flex-col lg:flex lg:flex-row gap-2 mt-10">
@@ -343,7 +392,7 @@ const AllDelivery = () => {
             <div>
                 {/* <OrdersTable></OrdersTable> */}
                 <div className="min-w-full">
-                    <form onSubmit={handleBuy} className="text-[11px]  w-full">
+                    <div className="text-[11px]  w-full">
                         {/* order table head  */}
 
 
@@ -368,7 +417,7 @@ const AllDelivery = () => {
                                             <div className="">
 
 
-                                                <button type='submit' className="py-2 px-5 border-2 border-red-300">
+                                                <button onClick={() => handleDeliveryManWithDeliveryHead(res._id)} className="py-2 px-5 border-2 border-red-300">
 
                                                     PRODUCT DELIVERED
 
@@ -377,10 +426,6 @@ const AllDelivery = () => {
 
                                             </div>
                                             {/* this div is the button for the delivered or not delivered ends */}
-
-
-
-
 
                                             {/* this dive is for the title */}
                                             <div className="">
@@ -391,14 +436,7 @@ const AllDelivery = () => {
                                             </div>
                                             {/* this dive is for the title ends */}
 
-                                            {/* this dive is for the title */}
-                                            <div className="">
 
-
-                                                <input name='deliveryId' className='md:w-[400%] h-6 border-2 pl-2' placeholder='delivery man id' type="text" />
-
-                                            </div>
-                                            {/* this dive is for the title ends */}
 
                                         </div>
 
@@ -441,11 +479,14 @@ const AllDelivery = () => {
                                                     <li className="text-[13px] font-semibold">date: <span className="text-red-500">{res?.date}</span></li>
 
 
-                                                    <li className="text-[13px] font-semibold">customer  name: <span className="text-red-500">{ }</span></li>
+                                                    <li className="text-[13px] font-semibold">customer  name: <span className="text-red-500">{res?.deliveredToUser?.name}</span></li>
 
-                                                    <li className="text-[13px] font-semibold">status: <span className="text-red-500">{res?.status}</span></li>
+                                                    <li className="text-[13px] font-semibold">mobile: <span className="text-red-500">{res?.deliveredToUser?.address?.mobile_number}</span></li>
+                                                    <li className="text-[13px] font-semibold">email: <span className="text-red-500">{res?.deliveredToUser?.address?.email}</span></li>
 
-                                                    <li className="text-[13px] font-semibold">paymentMethod: <span className="text-red-500">{ }</span></li>
+                                                    <li className="text-[13px] font-semibold">status: <span className="text-red-500">{res?.deliveredToUser?.address?.area}</span></li>
+
+                                                    <li className="text-[13px] font-semibold">paymentMethod: <span className="text-red-500">{"COD"}</span></li>
 
                                                 </ul>
 
@@ -458,7 +499,7 @@ const AllDelivery = () => {
                                         {/* ends of the product sheeping detail */}
 
 
-                                        <div className=" w-full grid md:grid-cols-12 grid-cols-3 lg:w-[80%]  ">
+                                        <div className=" w-full grid md:grid-cols-7 pl-2 grid-cols-2 lg:w-[80%]  ">
                                             {/* {Object.values(item.order.cart).map((cartItem, cartIndex) => (  */}
 
                                             {res?.products?.map((product, index) => (
@@ -471,6 +512,10 @@ const AllDelivery = () => {
                                                     <img className='w-20 h-20' src={product?.product?.product_images[0]} alt="" />
                                                     <br />
                                                     <p>{product?.product?.product_title}</p>
+                                                    <br />
+                                                    <p className='w-[120px]'>Name: {product?.sellerId?.name}</p>
+                                                    <p className='w-[120px]'>Store: {product?.sellerId?.store_address}</p>
+                                                    <p className='w-[120px]'>Mobile: {product?.sellerId?.mobile_number}</p>
 
                                                 </div>
                                             ))}
@@ -509,7 +554,7 @@ const AllDelivery = () => {
                         {/* here is the order manage tables  ends*/}
 
 
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

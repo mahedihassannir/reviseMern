@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import Swal from "sweetalert2";
 
 const DeliveryManHome = () => {
     const deliveryMan = localStorage.getItem("dId");
@@ -124,6 +125,17 @@ const DeliveryManHome = () => {
             });
 
             console.log(response.data); // Log the response data
+
+            if (response.data.code === 200) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+
             // Handle success
         } catch (error) {
             console.error('Error:', error);
@@ -510,7 +522,7 @@ const DeliveryManHome = () => {
                                         {/* ends of the product sheeping detail */}
 
 
-                                        <div className=" w-full grid md:grid-cols-12 grid-cols-2 gap-2 lg:w-[80%]  ">
+                                        <div className=" w-full grid md:grid-cols-7 grid-cols-2 gap-2 lg:w-[80%]  ">
                                             {/* {Object.values(item.order.cart).map((cartItem, cartIndex) => (  */}
 
                                             {res?.products?.map((product, index) => (

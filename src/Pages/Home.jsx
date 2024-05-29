@@ -58,17 +58,17 @@ const Home = () => {
 
                     <div className='flex items-center justify-center'>
                         <img
-                            className='w-[80px] h-[80px] rounded-[50%] '
-                            src='https://i.ibb.co/sQkv44X/433964772-388189894018458-4603554648629716858-n.jpg'
+                            className='animate-pulse md:w-[120px] md:h-[120px] rounded-[50%] '
+                            src='https://scontent.fdac24-3.fna.fbcdn.net/v/t39.30808-1/435896869_945240464001708_1413687226696707354_n.jpg?stp=cp6_dst-jpg_p160x160&_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHjZ82ztxwU6Z3N5LBA_t8FyxD2GC6eCSvLEPYYLp4JK-MteyofK4mL045OoQPkb3Nary8gLLISlVFYFjyvgtAu&_nc_ohc=uKDH9EA7grIQ7kNvgGHs10p&_nc_ht=scontent.fdac24-3.fna&oh=00_AYBzvlb35Qo9L7xRzyXBr9m9R4lzK6NbVMz068XYgCaa2g&oe=665D3D51'
                             alt=''
                         />
                     </div>
                     <div className='text-center'>
-                        <h3 className='mt-3 font-semibold text-4xl text-red-500'>Mahedi Hassan Nir</h3>
-                        <h4>mahedi@gmail.com</h4>
+                        <h3 className='mt-3 font-semibold text-4xl text-red-500'>Emon</h3>
+                        <h4>emon@gmail.com</h4>
                         <Link to='/'>
-                            <button className='bg-[#19D895] w-[90%] mt-4 font-normal px-12 py-2 rounded-sm'>
-                                CEO
+                            <button className='font-semibold  bg-[#19D895] w-[90%] mt-4  px-12 py-2 rounded-sm'>
+                                DELIVERY HEAD
                             </button>
                         </Link>
                     </div>
