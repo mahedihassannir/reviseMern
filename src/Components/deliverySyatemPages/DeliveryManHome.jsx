@@ -4,45 +4,46 @@ import { TbCurrencyTaka } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
+import DeliveryManHomeHook from "../../Hooks/DeliveryManHome";
 
 const DeliveryManHome = () => {
     const deliveryMan = localStorage.getItem("dId");
     const id = localStorage.getItem("dAId");
 
     // edns
-    const [man, setDeliveryMan] = useState(null);
+    // const [man, setDeliveryMan] = useState(null);
+    const [Req, refetch] = DeliveryManHomeHook();
+    // useEffect(() => {
+    //     const fetchProducts = async () => {
+    //         try {
+    //             const response = await fetch(`http://localhost:5000/api/v1/admin/delivery/profile?id=${id}`, {
+    //                 method: 'GET',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     Authorization: `Bearer ${deliveryMan}`
+    //                 },
+    //             });
+    //             if (!response.ok) {
+    //                 throw new Error('Failed to all users');
+    //             }
+    //             const data = await response.json();
+    //             setDeliveryMan(data);
+    //         } catch (error) {
+    //             // setError(error.message);
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await fetch(`http://localhost:5000/api/v1/admin/delivery/profile?id=${id}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${deliveryMan}`
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error('Failed to all users');
-                }
-                const data = await response.json();
-                setDeliveryMan(data);
-            } catch (error) {
-                // setError(error.message);
+    //         } finally {
+    //             // setLoading(false);
+    //         }
+    //     };
 
-            } finally {
-                // setLoading(false);
-            }
-        };
+    //     if (deliveryMan) {
+    //         fetchProducts();
+    //     }
 
-        if (deliveryMan) {
-            fetchProducts();
-        }
+    // }, [deliveryMan]);
 
-    }, [deliveryMan]);
-
-    console.log(man);
-    const data = man?.result?.deliveryReq
+    // console.log(man);
+    const data = Req?.result?.deliveryReq
     console.log(data);
     // const calculateTotalPrice = (deliveryReq) => {
     //     if (!Array.isArray(deliveryReq)) return 0;
@@ -116,6 +117,8 @@ const DeliveryManHome = () => {
 
         const deliveryAccountIid = localStorage.getItem("dAId");
         const dToken = localStorage.getItem("dId");
+        console.log(id);
+
         try {
             const response = await axios.post(`http://localhost:5000/api/v1/admin/delivery/confirm?deliveryId=${id}&acId=${deliveryAccountIid}`, {
                 headers: {
@@ -130,7 +133,7 @@ const DeliveryManHome = () => {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Your work has been saved',
+                    title: 'ডেলিভারি সম্পন্ন হয়েছে',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -146,8 +149,7 @@ const DeliveryManHome = () => {
     }
     const handleCancel = (id) => {
         console.log(id);
-
-    }
+    };
 
     const calculateIndexTotalPrice = (deliveryReq) => {
         if (!Array.isArray(deliveryReq)) return [];
@@ -175,6 +177,7 @@ const DeliveryManHome = () => {
     // Assuming 'result' contains the data you provided
     const deliveryReqTotalPrices = calculateIndexTotalPrice(data);
     console.log(deliveryReqTotalPrices);
+    refetch();
     return (
         <div>
             <ToastContainer />
@@ -394,6 +397,14 @@ const DeliveryManHome = () => {
                     </ul>
                 </div>
             </div>
+
+            <div className="my-5">
+                <h1 className="font-semibold text-2xl">
+
+                    Delivery Req:  {Req?.result?.deliveryReq?.length}
+                </h1>
+            </div>
+
             {/* Order Table */}
             <div>
                 {/* <OrdersTable></OrdersTable> */}
@@ -410,8 +421,8 @@ const DeliveryManHome = () => {
                         {/* // console.log(item.order.address?.address), */}
 
 
-                        {man && man.result && man?.result?.deliveryReq?.length > 0 ? (
-                            man?.result?.deliveryReq?.map(res =>
+                        {Req && Req?.result && Req?.result?.deliveryReq?.length > 0 ? (
+                            Req?.result?.deliveryReq?.map(res =>
                                 <div key={res._id} className="w-full mt-5 ">
                                     {/* this dive is for change the progress of order */}
                                     <div className=" w-[100%] lg:w-[40%] shadow-lg  h-10 bg-white rounded-t-md ">

@@ -3,7 +3,7 @@ import { BsChatRightDotsFill } from 'react-icons/bs';
 import { HiAcademicCap, HiArchiveBoxXMark, HiChartBar, HiHome, HiMiniAdjustmentsHorizontal, HiMiniCalculator, HiMiniUsers, HiOutlineFolder, HiUsers } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { FaPerson } from 'react-icons/fa6';
+import { FaGroupArrowsRotate, FaPerson, FaProductHunt } from 'react-icons/fa6';
 import { FaRegQuestionCircle } from 'react-icons/fa';
 
 const Home = () => {
@@ -20,7 +20,7 @@ const Home = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/v1/admin/delivery/profile?id=${id}`, {
+                const response = await fetch(`http://localhost:5000/profile?id=${id}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const Home = () => {
                     <div className='flex items-center justify-center'>
                         <img
                             className='animate-pulse md:w-[120px] md:h-[120px] rounded-[50%] '
-                            src='https://scontent.fdac24-3.fna.fbcdn.net/v/t39.30808-1/435896869_945240464001708_1413687226696707354_n.jpg?stp=cp6_dst-jpg_p160x160&_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHjZ82ztxwU6Z3N5LBA_t8FyxD2GC6eCSvLEPYYLp4JK-MteyofK4mL045OoQPkb3Nary8gLLISlVFYFjyvgtAu&_nc_ohc=uKDH9EA7grIQ7kNvgGHs10p&_nc_ht=scontent.fdac24-3.fna&oh=00_AYBzvlb35Qo9L7xRzyXBr9m9R4lzK6NbVMz068XYgCaa2g&oe=665D3D51'
+                            src='https://i.ibb.co/YprpF67/435896869-945240464001708-1413687226696707354-n.jpg'
                             alt=''
                         />
                     </div>
@@ -96,7 +96,7 @@ const Home = () => {
                                     : ""
                                     } gap-4`}
                             >
-                                <BsChatRightDotsFill className='w-4 h-4'></BsChatRightDotsFill>
+                                <FaPerson className='w-4 h-4'></FaPerson>
                                 <h4>All Delivery Mans</h4>
                             </div>
                         </Link>
@@ -108,7 +108,7 @@ const Home = () => {
                                     : ""
                                     } gap-4`}
                             >
-                                <BsChatRightDotsFill className='w-4 h-4'></BsChatRightDotsFill>
+                                <FaProductHunt className='w-4 h-4'></FaProductHunt>
                                 <h4>All Delivery</h4>
                             </div>
                         </Link>
@@ -163,29 +163,7 @@ const Home = () => {
                         </Link>
 
                         {/* Sales */}
-                        <Link to={""}>
-                            <div
-                                onClick={() => setActiveRoute("Sales")}
-                                className={`flex hover:bg-[#19D895] duration-700 justify-between p-2 relative cursor-pointer  ${activeRoute === "Sales"
-                                    ? "bg-[#19D895] text-[#0A1727]"
-                                    : ""
-                                    } gap-4`}
-                            >
-                                <div className='flex items-center gap-4 '>
-                                    <HiUsers className='w-4 h-4'></HiUsers>
-                                    <h4>Seller By Id</h4>
-                                </div>
-
-                                <div
-                                    className={`flex hover:bg-[#19D895] duration-700 items-center ${activeRoute === "Sales"
-                                        ? "bg-[#0A1727] text-white"
-                                        : "bg-[#19D895] text-[#0A1727]"
-                                        } justify-center py-2 px-3  cursor-pointer w-[20px] h-[20px] mt-3 rounded-lg absolute -top-[2px] right-2`}
-                                >
-                                    <small>2</small>
-                                </div>
-                            </div>
-                        </Link>
+                      
 
                         {/* Members */}
 
@@ -315,7 +293,7 @@ const Home = () => {
                     <div className=' text-black px-5 py-8'>
                         <div className='flex items-center justify-center'>
                             <img
-                                className='w-[80px] h-[80px] rounded-[50%] '
+                                className='animate-pulse md:w-[120px] md:h-[120px] rounded-[50%] '
                                 src={man?.result?.imageUrl}
                                 alt=''
                             />

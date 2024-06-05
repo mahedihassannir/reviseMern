@@ -4,6 +4,7 @@ import { TbCurrencyTaka } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Swal from 'sweetalert2';
+import GetDeliveryReqHook from '../Hooks/AllDeliveryGetHook';
 
 const AllDelivery = () => {
     const adminToken = localStorage.getItem("adminToken");
@@ -15,6 +16,10 @@ const AllDelivery = () => {
     console.log(modalIsOpen)
     const [deliveryMans, setDeliveryMans] = useState(null);
     const [deliveryManId, setDeliveryManId] = useState();
+    const [allDelivery, refetch] = GetDeliveryReqHook()
+    console.log(allDelivery);
+    refetch()
+
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -130,6 +135,7 @@ const AllDelivery = () => {
             // Handle error
         }
     };
+
 
     return (
         <div>
@@ -287,7 +293,7 @@ const AllDelivery = () => {
 
                 <p className='text-red-500'>
 
-                    {delevaries?.result?.length}
+                    {allDelivery?.result?.length}
 
                 </p>
 
@@ -404,8 +410,8 @@ const AllDelivery = () => {
                         {/* // console.log(item.order.address?.address), */}
 
 
-                        {delevaries && delevaries.result && delevaries.result.length > 0 ? (
-                            delevaries?.result?.map(res =>
+                        {allDelivery && allDelivery?.result && allDelivery?.result?.length > 0 ? (
+                            allDelivery?.result?.map(res =>
                                 <div key={res._id} className="w-full mt-5 ">
                                     {/* this dive is for change the progress of order */}
                                     <div className=" w-[100%] lg:w-[40%] shadow-lg  h-10 bg-white rounded-t-md ">
