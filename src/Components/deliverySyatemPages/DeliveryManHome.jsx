@@ -485,9 +485,12 @@ const DeliveryManHome = () => {
                                                     <p className="flex items-center justify-center text-red-600">
                                                         {/* TODO */}
                                                         {/* {} */}
-                                                        <span> <TbCurrencyTaka />
-
-                                                            {deliveryReqTotalPrices[0]}
+                                                        <span>
+                                                            Total Price: {
+                                                                res?.products?.reduce((total, product) =>
+                                                                    total + (product?.product?.price * product?.quantity + 5), 0
+                                                                ) + 5
+                                                            }
                                                         </span>
                                                     </p>
                                                 </p>
@@ -552,6 +555,9 @@ const DeliveryManHome = () => {
                                                             <p className="text-md ">seller name: <span className="text-red-500">{product?.product?.seller?.name}</span></p>
 
                                                             <p className="text-md ">seller number: <span className="text-red-500">{product?.product?.seller?.mobile_number}</span></p>
+
+                                                            <p className="text-md  text-xl text-black font-semibold">Quantity: <span className="text-red-500">{product?.quantity}</span></p>
+                                                            <p className='text-lg font-semibold'>Price: <span className="text-green-500">{product?.product?.price}</span></p>
 
                                                         </div>
                                                     </div>

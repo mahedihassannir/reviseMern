@@ -286,8 +286,6 @@ const Home = () => {
 
                 </div>
             ) : null}
-
-
             {deliveryMan && !admin ? (
                 <div>
                     <div className=' text-black px-5 py-8'>

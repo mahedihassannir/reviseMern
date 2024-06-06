@@ -148,12 +148,12 @@ const AllDelivery = () => {
                         deliveryMans?.result.map(res =>
                             <div
                                 onClick={() => handleDeliveryMan(res._id)}
-                                className={`cursor-pointer border-2 w-[250px] p-2 ${deliveryManId === res._id ? 'border-red-500 border-4' : 'border-gray-300'}`}
-                                key={res._id}
+                                className={`cursor-pointer border-2 w-[250px] p-2 ${deliveryManId === res?._id ? 'border-red-500 border-4' : 'border-gray-300'}`}
+                                key={res?._id}
                             >
                                 <img className='w-14 h-14' src={res?.imageUrl} alt="" />
-                                <p>{res.name}</p>
-                                <p>{res._id}</p>
+                                <p>{res?.name}</p>
+                                <p>{res?._id}</p>
                             </div>
                         )
                     }
@@ -435,15 +435,9 @@ const AllDelivery = () => {
 
                                             {/* this dive is for the title */}
                                             <div className="">
-
-
                                                 <p className="font-semibold text-[14px] uppercase">change the order progress</p>
-
                                             </div>
                                             {/* this dive is for the title ends */}
-
-
-
                                         </div>
 
                                     </div>
@@ -451,36 +445,31 @@ const AllDelivery = () => {
 
                                     <div className=" rounded-md w-full shadow-md border-spacing-2 py-4 bg-white flex-row-reverse lg:flex">
                                         {/* starts of the product sheeping address and the person who ordered */}
-
                                         <div className=" w-full lg:w-[20%]  flex lg:grid   ml-2 border-r-2 border-r-indigo-800">
-
                                             <div className=" w-28 flex justify-center items-center h-28  rounded-full border-2 ">
-
                                                 <p className="text-lg font-semibold text-center">
                                                     product <br /> <span className="text-center">{""}</span>
                                                     <p className="flex items-center justify-center text-red-600">
-                                                        {/* TODO */}
-                                                        {/* {} */}
-                                                        <span> <TbCurrencyTaka />
-
-
-                                                            {res?.products?.map((product, index) => (
-                                                                <span key={index}>
-                                                                    {product?.product?.price}
-                                                                </span>
-
-                                                            ))}
-
+                                                        <span>
+                                                            Total Price: {
+                                                                res?.products?.reduce((total, product) =>
+                                                                    total + (product?.product?.price * product?.quantity + 5), 0
+                                                                ) + 5
+                                                            }
                                                         </span>
                                                     </p>
                                                 </p>
-
-
                                             </div>
 
                                             {/* this is the order product shipping details */}
-                                            <div className="w-full p-2 ">
+                                            <div className="w-full p-2">
+                                                {res?.products?.map((product, index) => (
 
+                                                    <p key={index}>{product?.length}</p>
+
+
+
+                                                ))}
                                                 <ul>
                                                     <li className="text-[13px] font-semibold">date: <span className="text-red-500">{res?.date}</span></li>
 
@@ -488,8 +477,6 @@ const AllDelivery = () => {
                                                     <li className="text-[13px] font-semibold">customer  name: <span className="text-red-500">{res?.deliveredToUser?.name}</span></li>
 
                                                     <li className="text-[13px] font-semibold">mobile: <span className="text-red-500">{res?.deliveredToUser?.address?.mobile_number}</span></li>
-                                                    <li className="text-[13px] font-semibold">email: <span className="text-red-500">{res?.deliveredToUser?.address?.email}</span></li>
-
                                                     <li className="text-[13px] font-semibold">status: <span className="text-red-500">{res?.deliveredToUser?.address?.area}</span></li>
 
                                                     <li className="text-[13px] font-semibold">paymentMethod: <span className="text-red-500">{"COD"}</span></li>
@@ -522,7 +509,8 @@ const AllDelivery = () => {
                                                     <p className='w-[120px]'>Name: {product?.sellerId?.name}</p>
                                                     <p className='w-[120px]'>Store: {product?.sellerId?.store_address}</p>
                                                     <p className='w-[120px]'>Mobile: {product?.sellerId?.mobile_number}</p>
-
+                                                    <p className='w-[120px] text-red-700 text-lg font-semibold'>Quantity: {product?.quantity}</p>
+                                                    <p className='text-lg font-semibold text-black'>Price: {product?.product?.price}</p>
                                                 </div>
                                             ))}
 

@@ -117,59 +117,120 @@ const router = createBrowserRouter(
                 },
                 {
                     path: '/with_draw_req',
-                    element: <WithdrawReq></WithdrawReq>
+                    element:
+                        <PrivateRoute>
+
+                            <WithdrawReq></WithdrawReq>
+
+                        </PrivateRoute>
                 },
                 {
                     path: '/review',
-                    element: <Revieew></Revieew>
+                    element:
+                        <PrivateRoute>
+                            <Revieew></Revieew>
+                        </PrivateRoute>
                 },
                 {
                     path: '/wish_list',
-                    element: <WishList></WishList>
+                    element:
+                        <PrivateRoute>
+                            <WishList></WishList>
+                        </PrivateRoute>
                 },
                 {
                     path: '/all_products',
-                    element: <AllPRoducts></AllPRoducts>
+                    element:
+                        <PrivateRoute>
+                            <AllPRoducts></AllPRoducts>
+                        </PrivateRoute>
                 },
                 {
                     path: '/reports',
-                    element: <Reports></Reports>
+                    element:
+                        <PrivateRoute>
+
+
+                            <Reports></Reports>
+                        </PrivateRoute>
                 },
                 {
                     path: '/user_helpline',
-                    element: <UHelp></UHelp>
+                    element:
+                        <PrivateRoute>
+
+
+                            <UHelp></UHelp>
+
+
+                        </PrivateRoute>
                 },
                 {
                     path: '/seller_helpline',
-                    element: <SHelp></SHelp>
+                    element:
+                        <PrivateRoute>
+                            <SHelp></SHelp>
+                        </PrivateRoute>
                 },
                 {
                     path: '/seller_register',
-                    element: <SellerRegister></SellerRegister>
+                    element:
+                        <PrivateRoute>
+                            <SellerRegister></SellerRegister>
+                        </PrivateRoute>
                 },
                 {
                     path: '/seller_register',
-                    element: <SellerRegister></SellerRegister>
+                    element:
+                        <PrivateRoute>
+                            <SellerRegister></SellerRegister>
+                        </PrivateRoute>
                 },
                 {
                     path: '/user_register',
-                    element: <UserReg></UserReg>
+                    element:
+                        <PrivateRoute>
+                            <UserReg></UserReg>
+
+                        </PrivateRoute>
                 },
                 {
                     path: '/manage_products/:id',
-                    element: <ManageProducts></ManageProducts>
+                    element:
+                        <PrivateRoute>
+
+
+                            <ManageProducts></ManageProducts>
+                        </PrivateRoute>
                 },
                 {
                     path: '/deliverymans',
-                    element: <AllDeliveryMans></AllDeliveryMans>
+                    element:
+                        <PrivateRoute>
+                            <AllDeliveryMans></AllDeliveryMans>
+                        </PrivateRoute>
                 },
                 {
                     path: '/withdraw_completed',
-                    element: <WithDrawCompleted></WithDrawCompleted>
+                    element: 
+                    <PrivateRoute>
+
+
+                    
+                    <WithDrawCompleted></WithDrawCompleted>
+
+                </PrivateRoute>
                 },
                 {
                     path: '/withdraw_rejected',
-                    element: <WithDrawRejected></WithDrawRejected>
+                    element:
+                    <PrivateRoute>
+
+
+                    
+                    <WithDrawRejected></WithDrawRejected>
+
+                </PrivateRoute>
                 },
                 {
                     path: '/delivery/login',
