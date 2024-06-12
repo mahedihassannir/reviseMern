@@ -30,7 +30,7 @@ const LoginAsAdeliveryMan = () => {
         const password = forom.password.value
 
         console.log(email, password);
-        fetch(`http://localhost:5000/api/v1/admin/auth/delivery_man/login`, {
+        fetch(`https://api.ecom-bd.com/api/v1/admin/auth/delivery_man/login`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"

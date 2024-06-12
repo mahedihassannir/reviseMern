@@ -14,7 +14,7 @@ const Revieew = () => {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(`http://localhost:5000/api/v1/admin/review`, {
+                const response = await fetch(`https://api.ecom-bd.com/api/v1/admin/review`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

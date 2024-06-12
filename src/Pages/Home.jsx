@@ -20,7 +20,7 @@ const Home = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/profile?id=${id}`, {
+                const response = await fetch(`https://api.ecom-bd.com/profile?id=${id}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

@@ -20,7 +20,7 @@ const WithdrawReq = () => {
             setLoading(true);
             setError(null);
             try {
-                const response = await axios.get('http://localhost:5000/api/v1/admin/withdrawal_req', {
+                const response = await axios.get('https://api.ecom-bd.com/api/v1/admin/withdrawal_req', {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${adminToken}`
@@ -51,7 +51,7 @@ const WithdrawReq = () => {
 
         try {
             const response = await axios.post(
-                'http://localhost:5000/api/v1/admin/withdraw/update_status',
+                'https://api.ecom-bd.com/api/v1/admin/withdraw/update_status',
                 { id, status: 'Completed' },
                 {
                     headers: { Authorization: `Bearer ${adminToken}` }
@@ -81,7 +81,7 @@ const WithdrawReq = () => {
 
         try {
             const response = await axios.post(
-                'http://localhost:5000/api/v1/admin/withdraw/update_status',
+                'https://api.ecom-bd.com/api/v1/admin/withdraw/update_status',
                 { id, status: 'Rejected' },
                 {
                     headers: { Authorization: `Bearer ${adminToken}` }

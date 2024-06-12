@@ -8,7 +8,7 @@ const Cart = () => {
     const handledelete = (id) => {
         console.log(id);
 
-        fetch(`http://localhost:5000/cartsdel/${id}`, {
+        fetch(`https://api.ecom-bd.com/cartsdel/${id}`, {
             method: "DELETE"
 
         })

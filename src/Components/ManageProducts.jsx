@@ -18,7 +18,7 @@ const ManageProducts = () => {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(`http://localhost:5000/api/v1/admin/single/product?id=${id}`, {
+                const response = await fetch(`https://api.ecom-bd.com/api/v1/admin/single/product?id=${id}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ const ManageProducts = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:5000/api/v1/admin/delete/product?id=${id}`, {
+            const response = await axios.delete(`https://api.ecom-bd.com/api/v1/admin/delete/product?id=${id}`, {
                 headers: {
                     'Authorization': `Bearer ${adminToken}`
                 }

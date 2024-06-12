@@ -25,7 +25,7 @@ const UserReg = () => {
 
 
         console.log({ name, email, password });
-        fetch(`http://localhost:5000/api/v1/auth/user/register`, {
+        fetch(`https://api.ecom-bd.com/api/v1/auth/user/register`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"

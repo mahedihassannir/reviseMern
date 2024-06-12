@@ -135,7 +135,7 @@ const SellerPersonalDetails = () => {
 
         // console.log("this data is come from the 85 num line", allData);
 
-        fetch(`http://localhost:5000/api/v1/auth/seller/profile_create`, {
+        fetch(`https://api.ecom-bd.com/api/v1/auth/seller/profile_create`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

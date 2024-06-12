@@ -10,7 +10,7 @@ const DeliveryManHomeHook = () => {
 
         queryFn: async () => {
 
-            const res = await fetch(`http://localhost:5000/api/v1/admin/delivery/profile?id=${id}`, {
+            const res = await fetch(`https://api.ecom-bd.com/api/v1/admin/delivery/profile?id=${id}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${deliveryMan}`

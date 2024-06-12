@@ -56,7 +56,7 @@ const ContexProvider = ({ children }) => {
             Setuser(watch)
 
             if (watch) {
-                axios.post(`http://localhost:5000/jwt`, { email: watch.email })
+                axios.post(`https://api.ecom-bd.com/jwt`, { email: watch.email })
                     .then(data => {
                         console.log(data);
                         localStorage.setItem('jwt', data.data.token)

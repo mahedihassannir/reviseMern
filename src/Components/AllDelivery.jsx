@@ -26,7 +26,7 @@ const AllDelivery = () => {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(`http://localhost:5000/api/v1/admin/all_delivery_mans`, {
+                const response = await fetch(`https://api.ecom-bd.com/api/v1/admin/all_delivery_mans`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ const AllDelivery = () => {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(`http://localhost:5000/api/v1/admin/allDeliveries`, {
+                const response = await fetch(`https://api.ecom-bd.com/api/v1/admin/allDeliveries`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ const AllDelivery = () => {
         console.log(deliveryManId);
         const dToken = localStorage.getItem("dId");
         try {
-            const response = await axios.post(`http://localhost:5000/api/v1/admin/delivery/send_to_delivery_man?deliveryManId=${deliveryManId}&deliveryIdReq=${id}`, {
+            const response = await axios.post(`https://api.ecom-bd.com/api/v1/admin/delivery/send_to_delivery_man?deliveryManId=${deliveryManId}&deliveryIdReq=${id}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${dToken}`

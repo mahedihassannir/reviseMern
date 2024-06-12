@@ -16,7 +16,7 @@ const DeliveryManHome = () => {
     // useEffect(() => {
     //     const fetchProducts = async () => {
     //         try {
-    //             const response = await fetch(`http://localhost:5000/api/v1/admin/delivery/profile?id=${id}`, {
+    //             const response = await fetch(`https://api.ecom-bd.com/api/v1/admin/delivery/profile?id=${id}`, {
     //                 method: 'GET',
     //                 headers: {
     //                     'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ const DeliveryManHome = () => {
         console.log(id);
 
         try {
-            const response = await axios.post(`http://localhost:5000/api/v1/admin/delivery/confirm?deliveryId=${id}&acId=${deliveryAccountIid}`, {
+            const response = await axios.post(`https://api.ecom-bd.com/api/v1/admin/delivery/confirm?deliveryId=${id}&acId=${deliveryAccountIid}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${dToken}`

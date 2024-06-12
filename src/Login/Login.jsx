@@ -30,7 +30,7 @@ const Login = () => {
         const password = forom.password.value
 
         console.log(email, password);
-        fetch(`http://localhost:5000/api/v1/admin/auth/login`, {
+        fetch(`https://api.ecom-bd.com/api/v1/admin/auth/login`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
