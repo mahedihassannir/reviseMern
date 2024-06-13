@@ -16,11 +16,12 @@ const Home = () => {
 
     // edns
     const [man, setDeliveryMan] = useState(null);
+    console.log(man);
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch(`https://api.ecom-bd.com/profile?id=${id}`, {
+                const response = await fetch(`https://api.ecom-bd.com/api/v1/admin/delivery/profile?id=${id}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -163,7 +164,7 @@ const Home = () => {
                         </Link>
 
                         {/* Sales */}
-                      
+
 
                         {/* Members */}
 
